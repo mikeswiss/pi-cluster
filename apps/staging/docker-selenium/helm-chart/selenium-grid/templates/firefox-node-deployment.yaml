@@ -1,0 +1,28 @@
+{{- if .Values.nodes.firefox.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-firefox-nodes
+  labels:
+    app: firefox-nodes
+spec:
+  replicas: {{ .Values.nodes.firefox.replicas }}
+  selector:
+    matchLabels:
+      app: firefox-nodes
+  template:
+    metadata:
+      labels:
+        app: firefox-nodes
+    spec:
+      containers:
+        - name: firefox-node
+          image: selenium/node-firefox:{{ .Values.global.selenium.version }}
+          resources:
+            requests:
+              cpu: {{ .Values.nodes.firefox.resources.requests.cpu }}
+              memory: {{ .Values.nodes.firefox.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.nodes.firefox.resources.limits.cpu }}
+              memory: {{ .Values.nodes.firefox.resources.limits.memory }}
+  {{- end }}

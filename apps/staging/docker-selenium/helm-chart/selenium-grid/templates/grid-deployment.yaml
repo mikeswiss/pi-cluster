@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-selenium-grid
+  labels:
+    app: selenium-grid
+spec:
+  replicas: {{ .Values.grid.replicas }}
+  selector:
+    matchLabels:
+      app: selenium-grid
+  template:
+    metadata:
+      labels:
+        app: selenium-grid
+    spec:
+      containers:
+        - name: selenium-grid
+          image: selenium/grid:{{ .Values.global.selenium.version }}
+          ports:
+            - containerPort: 4444
+          resources:
+            requests:
+              cpu: {{ .Values.grid.resources.requests.cpu }}
+              memory: {{ .Values.grid.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.grid.resources.limits.cpu }}
+              memory: {{ .Values.grid.resources.limits.memory }}

@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: selenium-grid
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./apps/staging/docker-selenium/helm-chart/selenium-grid
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    # Custom values can override defaults
+    grid:
+      replicas: 1
+    nodes:
+      chrome:
+        replicas: 2
+      firefox:
+        replicas: 2

@@ -1,0 +1,28 @@
+{{- if .Values.nodes.chrome.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-chrome-nodes
+  labels:
+    app: chrome-nodes
+spec:
+  replicas: {{ .Values.nodes.chrome.replicas }}
+  selector:
+    matchLabels:
+      app: chrome-nodes
+  template:
+    metadata:
+      labels:
+        app: chrome-nodes
+    spec:
+      containers:
+        - name: chrome-node
+          image: selenium/node-chrome:{{ .Values.global.selenium.version }}
+          resources:
+            requests:
+              cpu: {{ .Values.nodes.chrome.resources.requests.cpu }}
+              memory: {{ .Values.nodes.chrome.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.nodes.chrome.resources.limits.cpu }}
+              memory: {{ .Values.nodes.chrome.resources.limits.memory }}
+  {{- end }}

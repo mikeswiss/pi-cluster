@@ -1,0 +1,39 @@
+global:
+  selenium:
+    version: "4.16.1"
+
+# Selenium Grid Configuration
+grid:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+# Browser Nodes
+nodes:
+  chrome:
+    enabled: true
+    replicas: 2
+    resources:
+      requests:
+        cpu: 300m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+  firefox:
+    enabled: true
+    replicas: 2
+    resources:
+      requests:
+        cpu: 300m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
