@@ -1,9 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: selenium-grid
+  name: selenium
   namespace: flux-system
 spec:
-  type: git
-  url: https://github.com/SeleniumHQ/docker-selenium.git
+  type: oci
+  url: oci://docker.io/selenium
   interval: 5m
