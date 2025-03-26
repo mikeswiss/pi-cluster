@@ -1,0 +1,47 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: selenium-grid
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: charts/selenium-grid
+      sourceRef:
+        kind: HelmRepository
+        name: selenium-grid
+        namespace: flux-system
+  values:
+    # Basic Selenium Grid configuration
+    isolateComponents: false
+
+    # Selenium Router configuration
+    router:
+      enabled: true
+      replicas: 1
+
+    # Selenium Distributor configuration
+    distributor:
+      enabled: true
+      replicas: 1
+
+    # Selenium Session Queue configuration
+    sessionQueue:
+      enabled: true
+      replicas: 1
+
+    # Selenium Web configuration
+    web:
+      enabled: true
+      replicas: 1
+
+    # Chrome Node configuration
+    chrome:
+      enabled: true
+      replicas: 2
+
+    # Firefox Node configuration
+    firefox:
+      enabled: true
+      replicas: 2
